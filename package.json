@@ -8,5 +8,21 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henriqwe/to-do-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/henriqwe/to-do-back/issues"
+  },
+  "homepage": "https://github.com/henriqwe/to-do-back#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }
