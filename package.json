@@ -1,28 +1,31 @@
 {
-  "name": "to-do-back",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/henriqwe/to-do-back.git"
-  },
-  "bugs": {
-    "url": "https://github.com/henriqwe/to-do-back/issues"
-  },
-  "homepage": "https://github.com/henriqwe/to-do-back#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mysql": "^2.18.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.12"
-  }
+    "name": "to-do-back",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./src/server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 11111",
+        "dev": "nodemon ./src/server.js",
+        "start": "node ./src/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/henriqwe/to-do-back.git"
+    },
+    "bugs": {
+        "url": "https://github.com/henriqwe/to-do-back/issues"
+    },
+    "homepage": "https://github.com/henriqwe/to-do-back#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mysql": "^2.18.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.12"
+    }
 }
