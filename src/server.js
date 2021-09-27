@@ -31,7 +31,7 @@ app.post('/newUser', (req, res) => {
                             connection.release()
 
                             if (!err) {
-                                res.send(rows)
+                                res.status(201).send(rows)
 
                             } else {
                                 console.log(err)
@@ -122,7 +122,7 @@ app.post('/addTarefa', (req, res) => {
             connection.release()
 
             if (!err) {
-                res.send(rows)
+                res.status(201).send(rows)
             } else {
                 console.log(err)
             }
