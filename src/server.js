@@ -4,24 +4,76 @@ const bodyParser = require('body-parser')
 const app = express();
 const port = process.env.PORT || 3001
 
-const mysql = require('mysql')
-
-const pool = mysql.createPool({
-    host: '50.116.87.178',
-    user: 'henri519_todo',
-    password: 'todo123',
-    database: 'henri519_todolist'
-})
+const pool = require('./config/db')
 
 app.use(express.json());
 // app.use(bodyParser.urlencoded({ extended: false }))
 
-//MYSQL
+
+//cadastro
+app.post('/newUser', (req, res) => {
+    let { nome, email, senha } = req.body;
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+
+        connection.query(`SELECT id,nome,email FROM usuarios WHERE email = "${email}"`, (errEmail, rowsEmail) => {
+            connection.release()
+
+            if (!errEmail) {
+                if (rowsEmail.length >= 1) {
+                    res.send("Email já cadastrado")
+                } else {
+                    pool.getConnection((err, connection) => {
+                        if (err) throw err
+
+                        connection.query(`INSERT INTO usuarios (nome,email,senha) values ("${nome}","${email}","${senha}")`, (err, rows) => {
+                            connection.release()
+
+                            if (!err) {
+                                res.send(rows)
+
+                            } else {
+                                console.log(err)
+                            }
+                        })
+                    })
+                }
+            } else {
+                console.log(errEmail)
+            }
+        })
+    })
+})
+
+
+//autenticação
+app.get('/auth', (req, res) => {
+    let { email, senha } = req.body;
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+
+        connection.query(`SELECT id,nome,email FROM usuarios WHERE email = "${email}" AND senha = "${senha}"`, (err, rows) => {
+            connection.release()
+
+            if (!err) {
+                if (rows.length === 0) {
+                    res.status(204).send("Email/senha inválido")
+                } else {
+                    res.send(rows)
+                }
+            } else {
+                console.log(err)
+            }
+        })
+    })
+})
+
 
 app.get('/usuarios', (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) throw err
-        console.log(`connected as id ${connection.threadId}`)
 
         connection.query('SELECT * FROM usuarios', (err, rows) => {
             connection.release()
@@ -34,12 +86,39 @@ app.get('/usuarios', (req, res) => {
         })
     })
 })
-app.get('/tarefas', (req, res) => {
+
+app.get('/tarefas/:id', (req, res) => {
+    let { id } = req.params;
+
     pool.getConnection((err, connection) => {
         if (err) throw err
-        console.log(`connected as id ${connection.threadId}`)
 
-        connection.query('SELECT * FROM Tarefas', (err, rows) => {
+        connection.query(`SELECT * FROM Tarefas where usuario_id = "${id}"`, (err, rows) => {
+            connection.release()
+
+            if (!err) {
+                if (rows.length === 0) {
+                    res.status(204).send(rows)
+                } else {
+
+                    res.send(rows)
+                }
+            } else {
+                console.log(err)
+            }
+        })
+    })
+})
+
+// ADICIONAR TAREFA
+app.post('/addTarefa', (req, res) => {
+    let { usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa } = req.body;
+
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+
+        connection.query(`INSERT INTO Tarefas (usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa) values ("${usuario_id}","${titulo}","${descricao}","${prioridade_tarefa}","${icone}","${categoria}","${data_e_hora_tarefa}")`, (err, rows) => {
             connection.release()
 
             if (!err) {
@@ -50,15 +129,5 @@ app.get('/tarefas', (req, res) => {
         })
     })
 })
-
-
-
-
-
-
-
-
-
-
 
 app.listen(port, () => { console.log(`ouvindo a porta ${port}`) })
