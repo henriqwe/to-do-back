@@ -62,7 +62,7 @@ router.post('/api/auth', userAuth)
 
 router.get('/api/usuarios', getAllUsers)
 
-router.get('/api/createUser', addUser)
+router.post('/api/createUser', addUser)
 
 // router.get('/api/tarefas/:id', (req, res) => {
 //     let { id } = req.params;
