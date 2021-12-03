@@ -8,7 +8,7 @@ router.use(express.static(baseDir));
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }))
 
-//autenticação
+// USER
 router.get('/api/usuarios', getAllUsers)
 router.get('/api/findUserById', findUserById)
 router.post('/api/auth', userAuth)

@@ -26,7 +26,7 @@ const addUser = async(req, res) => {
         User.create({ nome, email, senha: hashedSenha }).then(response => {
             res.redirect('/');
         }).catch(erro => {
-            res.send(erro.errors[0].message)
+            res.status(422).send(erro.errors[0].message)
         })
 
     } catch (error) {
