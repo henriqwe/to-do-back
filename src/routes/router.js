@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { getAllUsers, userAuth, addUser } = require('../controllers/usersController')
+const { getAllUsers, userAuth, addUser, editUser, deleteUser, findUserById } = require('../controllers/usersController')
 const baseDir = `${__dirname}/../../build`
 
 router.use(express.static(baseDir));
@@ -63,6 +63,13 @@ router.post('/api/auth', userAuth)
 router.get('/api/usuarios', getAllUsers)
 
 router.post('/api/createUser', addUser)
+
+router.put('/api/updateUser', editUser)
+
+router.delete('/api/deleteUser', deleteUser)
+
+router.get('/api/findUserById', findUserById)
+
 
 // router.get('/api/tarefas/:id', (req, res) => {
 //     let { id } = req.params;

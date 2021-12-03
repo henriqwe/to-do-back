@@ -1,19 +1,19 @@
 const User = require('../models/User');
 const { hash } = require('bcryptjs');
 
-const redirect = async(req, res, next) => {
-    let title = req.params.title;
+const findUserById = async(req, res) => {
 
     try {
-        let doc = await User.findOneAndUpdate({ title }, { $inc: { click: 1 } });
-        //db.links.update({title: 'title'},{$inc:{click: 1}})
-        if (doc) {
-            res.redirect(doc.url);
-        } else {
-            next();
-        }
+        let { id } = req.body;
+        User.findOne({ where: { id } }).then((user) => {
+            if (user) {
+                res.send(user)
+            } else {
+                res.status(401).send('Usuário não encontrado')
+            }
+        })
     } catch (error) {
-        res.send('houve um erro no redirecionamento', error);
+        res.status(404).send(error);
     }
 }
 
@@ -36,27 +36,27 @@ const addUser = async(req, res) => {
 
 const editUser = async(req, res) => {
     try {
-        let docs = await User.find({});
-        //db.links.find({})
-        res.render('all', { links: docs });
+        let { id, nome, senha } = req.body;
+
+        let hashedSenha = await hash(senha, 10)
+
+        let user = User.update({ nome, senha: hashedSenha }, { where: { id } })
+        res.send(user)
+
     } catch (error) {
-        res.send('houve um erro em allLinks', error)
+        res.send('houve um erro na edição ---' + error)
     }
 }
 
 const deleteUser = async(req, res) => {
 
-    let id = req.params.id;
-
-    if (!id) {
-        id = req.body.id;
-    }
     try {
-        await User.findByIdAndDelete(id);
-        //db.links.remove({_id: ObjectId("id")})
-        res.redirect('/')
+        let { id } = req.body;
+        let user = User.destroy({ where: { id } })
+        res.send(user)
+
     } catch (error) {
-        res.send('houve um erro ao deletar um User', error)
+        res.send('houve um erro na edição ---' + error)
     }
 }
 
@@ -87,4 +87,4 @@ const getAllUsers = async(req, res) => {
     }
 }
 
-module.exports = { getAllUsers, userAuth, addUser };
+module.exports = { getAllUsers, userAuth, addUser, editUser, deleteUser, findUserById };
