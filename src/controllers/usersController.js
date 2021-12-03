@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const { hash } = require('bcryptjs');
 
 const redirect = async(req, res, next) => {
     let title = req.params.title;
@@ -18,9 +19,15 @@ const redirect = async(req, res, next) => {
 
 const addUser = async(req, res) => {
     try {
-        User.create({ firstName: "Jane", lastName: "Doe" }).then(response => {
+        let { nome, email, senha } = req.body;
+
+        let hashedSenha = await hash(senha, 10)
+
+        User.create({ nome, email, senha: hashedSenha }).then(response => {
             res.redirect('/');
-        });
+        }).catch(erro => {
+            res.send(erro.errors[0].message)
+        })
 
     } catch (error) {
         res.send('houve um erro no cadastro')
@@ -80,4 +87,4 @@ const getAllUsers = async(req, res) => {
     }
 }
 
-module.exports = { getAllUsers, userAuth };
+module.exports = { getAllUsers, userAuth, addUser };
