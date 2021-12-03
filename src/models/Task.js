@@ -33,13 +33,8 @@ const Task = database.define('tarefas', {
     data_e_hora_tarefa: {
         type: Sequelize.DATE
     },
-    data_de_criacao: {
-        type: Sequelize.DATE,
-        allowNull: false
-    },
     data_conclusao: {
-        type: Sequelize.DATE,
-        allowNull: false
+        type: Sequelize.DATE
     }
 
 })
