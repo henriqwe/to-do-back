@@ -18,7 +18,7 @@ router.delete('/api/deleteUser', deleteUser)
 
 // TASKS
 router.get('/api/getAllTasks', getAllTasks)
-router.get('/api/getTasksUser', getTasksUser)
+router.get('/api/getTasksUser/:usuario_id', getTasksUser)
 router.post('/api/createNewTask', createNewTask)
 router.put('/api/updateTask', updateTask)
 router.put('/api/finishTask', finishTask)

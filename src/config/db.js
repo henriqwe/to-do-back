@@ -5,4 +5,7 @@ const sequelize = new Sequelize(
     'henri519_todo',
     'todo123', { dialect: 'mysql', host: '50.116.87.178' }
 );
+
+// sequelize.close()
+
 module.exports = sequelize;

@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const Sequelize = require('sequelize');
 
 const deleteTask = async(req, res) => {
 
@@ -16,6 +17,7 @@ const getAllTasks = async(req, res) => {
 
     try {
         Task.findAll().then(tasks => {
+            // Sequelize.sequelize.close()
             res.send(tasks);
         });
     } catch (error) {
@@ -25,7 +27,9 @@ const getAllTasks = async(req, res) => {
 const getTasksUser = async(req, res) => {
 
     try {
-        let { usuario_id } = req.body
+        let { usuario_id } = req.params
+        console.log(req.body)
+        console.log(usuario_id)
         Task.findAll({ where: { usuario_id } }).then(tasks => {
             res.send(tasks);
         });
