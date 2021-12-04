@@ -37,9 +37,9 @@ const getTasksUser = async(req, res) => {
 const createNewTask = async(req, res) => {
 
     try {
-        let { usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa } = req.body
+        let { usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa, status } = req.body
 
-        Task.create({ usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa }).then(response => {
+        Task.create({ usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa, status }).then(response => {
             res.send(response);
         })
 
@@ -51,9 +51,9 @@ const createNewTask = async(req, res) => {
 const updateTask = async(req, res) => {
 
     try {
-        let { id, usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa } = req.body
+        let { id, usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa, status } = req.body
 
-        Task.update({ usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa }, { where: { id } }).then(response => {
+        Task.update({ usuario_id, titulo, descricao, prioridade_tarefa, icone, categoria, data_e_hora_tarefa, status }, { where: { id } }).then(response => {
             res.send(response);
         })
 
@@ -67,7 +67,7 @@ const finishTask = async(req, res) => {
     try {
         let { id } = req.body
 
-        Task.update({ data_conclusao: new Date() }, { where: { id } }).then(response => {
+        Task.update({ data_conclusao: new Date(), status: 2 }, { where: { id } }).then(response => {
             res.send(response);
         })
 

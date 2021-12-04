@@ -24,13 +24,13 @@ const addUser = async(req, res) => {
         let hashedSenha = await hash(senha, 10)
 
         User.create({ nome, email, senha: hashedSenha }).then(response => {
-            res.redirect('/');
+            res.send(response);
         }).catch(erro => {
             res.status(422).send(erro.errors[0].message)
         })
 
     } catch (error) {
-        res.send('houve um erro no cadastro')
+        res.status(500).send('houve um erro no cadastro')
     }
 }
 
@@ -44,7 +44,7 @@ const editUser = async(req, res) => {
         res.send(user)
 
     } catch (error) {
-        res.send('houve um erro na edição ---' + error)
+        res.status(500).send('houve um erro na edição ---' + error)
     }
 }
 

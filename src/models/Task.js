@@ -35,6 +35,10 @@ const Task = database.define('tarefas', {
     },
     data_conclusao: {
         type: Sequelize.DATE
+    },
+    status: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
     }
 
 })
