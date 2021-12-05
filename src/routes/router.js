@@ -22,7 +22,7 @@ router.get('/api/getTasksUser/:usuario_id', getTasksUser)
 router.post('/api/createNewTask', createNewTask)
 router.put('/api/updateTask', updateTask)
 router.put('/api/finishTask', finishTask)
-router.delete('/api/deleteTask', deleteTask)
+router.post('/api/deleteTask', deleteTask)
 
 // FRONT
 router.get('/*', (req, res) => {
