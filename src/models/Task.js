@@ -23,7 +23,7 @@ const Task = database.define('tarefas', {
         type: Sequelize.INTEGER
     },
     categoria: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     data_e_hora_tarefa: {
