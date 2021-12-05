@@ -9,11 +9,11 @@ const findUserById = async(req, res) => {
             if (user) {
                 res.send(user)
             } else {
-                res.status(401).send('Usuário não encontrado')
+                res.res.sendStatus(401).send('Usuário não encontrado')
             }
         })
     } catch (error) {
-        res.status(404).send(error);
+        res.res.sendStatus(404).send(error);
     }
 }
 
@@ -26,7 +26,7 @@ const addUser = async(req, res) => {
         User.create({ nome, email, senha: hashedSenha }).then(response => {
             res.send(response);
         }).catch(erro => {
-            res.status(422).send(erro.errors[0].message)
+            res.res.sendStatus(422).send(erro.errors[0].message)
         })
 
     } catch (error) {
@@ -44,7 +44,7 @@ const editUser = async(req, res) => {
         res.send(user)
 
     } catch (error) {
-        res.status(500).send('houve um erro na edição ---' + error)
+        res.res.sendStatus(500).send('houve um erro na edição ---' + error)
     }
 }
 
@@ -73,11 +73,11 @@ const userAuth = async(req, res) => {
             if (passwordMatch) {
                 res.send(user)
             } else {
-                res.status(401).send('Email/Senha inválido')
+                res.res.sendStatus(401).send('Email/Senha inválido')
             }
 
         } else {
-            res.status(401).send('Email/Senha inválido')
+            res.res.sendStatus(401).send('Email/Senha inválido')
         }
 
     } catch (error) {
@@ -92,7 +92,7 @@ const getAllUsers = async(req, res) => {
             res.send(users);
         });
     } catch (error) {
-        res.status(404).send(error);
+        res.res.sendStatus(404).send(error);
     }
 }
 

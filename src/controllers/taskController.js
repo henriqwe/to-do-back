@@ -6,7 +6,7 @@ const deleteTask = async(req, res) => {
     try {
         let { id } = req.body;
         Task.destroy({ where: { id } }).then(task => {
-            res.send(task)
+            res.sendStatus(200).send(task)
         })
 
     } catch (error) {
@@ -22,7 +22,7 @@ const getAllTasks = async(req, res) => {
             res.send(tasks);
         });
     } catch (error) {
-        res.status(404).send(error);
+        res.sendStatus(404).send(error);
     }
 }
 const getTasksUser = async(req, res) => {
@@ -35,7 +35,7 @@ const getTasksUser = async(req, res) => {
             res.send(tasks);
         });
     } catch (error) {
-        res.status(404).send(error);
+        res.sendStatus(404).send(error);
     }
 }
 
@@ -49,7 +49,7 @@ const createNewTask = async(req, res) => {
         })
 
     } catch (error) {
-        res.status(404).send(error);
+        res.sendStatus(404).send(error);
     }
 }
 
@@ -63,7 +63,7 @@ const updateTask = async(req, res) => {
         })
 
     } catch (error) {
-        res.status(404).send(error);
+        res.sendStatus(404).send(error);
     }
 }
 
@@ -77,7 +77,7 @@ const finishTask = async(req, res) => {
         })
 
     } catch (error) {
-        res.status(404).send(error);
+        res.sendStatus(404).send(error);
     }
 }
 
