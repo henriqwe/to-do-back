@@ -5,8 +5,9 @@ const deleteTask = async(req, res) => {
 
     try {
         let { id } = req.body;
-        let task = Task.destroy({ where: { id } })
-        res.send(task)
+        Task.destroy({ where: { id } }).then(task => {
+            res.send(task)
+        })
 
     } catch (error) {
         res.send('houve um erro na edição ---' + error)
