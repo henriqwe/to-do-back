@@ -22,10 +22,6 @@ const Task = database.define('tarefas', {
     prioridade_tarefa: {
         type: Sequelize.INTEGER
     },
-    icone: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     categoria: {
         type: Sequelize.INTEGER,
         allowNull: false
